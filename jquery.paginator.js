@@ -10,12 +10,24 @@
             _private = {};
         var _defaults = {
 
-            time: 0,
-
+            url: null,
             data: null,
 
-            render: function($el, sectionData){
+            /**
+            *   client, server
+            *   allows client to do pagination or server
+            *   client and server have different data layouts
+            */
+            control: "client",
 
+            fetch: function(callBack){
+                if(!_options.url) callBack();
+                $.get("", );
+            },
+
+            render: function(item){
+                console.log("You must override the 'render' function");
+                return "<div class=''>" + JSON.stringify(item) + "</div>";
             }
         };
 
