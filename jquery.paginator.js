@@ -15,6 +15,9 @@
             params: null,
             pageSize: 20,
 
+            btnDefault: "btn-default",
+            btnActive: "btn-primary",
+
             /**
             *   client, server
             *   allows client to do pagination or server
@@ -32,15 +35,6 @@
             render: function(item){
                 console.log("You must override the 'render' function");
                 return "<div class=''>" + JSON.stringify(item) + "</div>";
-            },
-
-            renderNav: function(currentPage, lastPage){
-                var html = "";
-                html += "<div class='row'><div class='col-xs-12'>";
-                html += "<div class='btn-group'>";
-
-                html+= "</div>";
-                html += "</div></div>";
             }
         };
 
@@ -74,9 +68,12 @@
             _private.setLastPage();
 
             var html = "";
-            _private.buildNavigation();
+            html += _private.buildNavigation();
             html += _private.buildBody();
+            html += _private.buildNavigation();
             _private.$el.html(html);
+
+            _private.changeActive();
         }
         _private.buildBody = function(){
             var html = "";
@@ -86,7 +83,50 @@
             return html;
         }
         _private.buildNavigation = function(){
-            return _options.renderNav(_private.page, _private.lastPage);
+              var html = "",
+                  currentPage = _private.page,
+                  lastPage = _private.lastPage;
+              html += "<div class='row paginator-pagination-container'><div class='col-xs-12'>";
+              html += "<div class='btn-group pull-right'>";
+              html += "<a href='' class='btn btn-default' id='paginator-prev-page'>&#60;</a>";
+
+              if(lastPage >= 1){
+
+                  if(lastPage < 6){
+                      for(var i = 1, items = []; i <= lastPage; i+=1){items.push(i);}
+                      html += _private.buildButtons(items);
+                  }else if((currentPage + 1) >= lastPage){
+                      html += _private.buildButtons([1, "...", lastPage-2, lastPage-1, lastPage]);
+                  }else if(currentPage <= 2){
+                      html += _private.buildButtons([1,2,3,"...", lastPage]);
+                  }else{
+                      html += _private.buildButtons([1,"...", currentPage-1, currentPage, currentPage+1, "...", lastPage]);
+                  }
+
+              }else{
+                  html += "<a href='' class='btn btn-default paginator-set-page' page='0'>0</a>";
+              }
+
+              html += "<a href=''class='btn btn-default' id='paginator-next-page'>&#62;</a>";
+              html+= "</div>";
+              html += "</div></div>";
+              return html;
+        }
+        _private.buildButtons = function(items){
+            var html = "";
+            for(var i = 0; i < items.length; i+=1){
+                if(items[i] === "..."){
+                    html += "<div class='btn " + _options.btnDefault + "'>...</div>";
+                    continue;
+                }
+                html += "<a href='' class='btn " + _options.btnDefault + " paginator-set-page' page='" + items[i] + "'>" + items[i] + "</a>";
+            }
+            return html;
+        }
+        _private.changeActive = function(){
+            $(".paginator-pagination-container ." + _options.btnDefault + "[page='" + _private.page + "']")
+                .removeClass(_options.btnDefault)
+                .addClass(_options.btnActive);
         }
 
 
@@ -144,6 +184,22 @@
 
 
         /**
+        *   Events
+        */
+        $("body").on("click", "#paginator-next-page", function(e){
+            e.preventDefault();
+            _private.$el.paginator("nextPage");
+        });
+        $("body").on("click", "#paginator-prev-page", function(e){
+            e.preventDefault();
+            _private.$el.paginator("prevPage");
+        });
+        $("body").on("click", ".paginator-set-page", function(e){
+            e.preventDefault();
+            _private.$el.paginator("setPage", $(e.currentTarget).attr("page"));
+        });
+
+        /**
         *   Public functions available through the jquery object
         */
         return {
@@ -173,6 +229,7 @@
 
             setPage: function(page){
                 console.log("setPage");
+                page = parseInt(page);
                 if(page < 1 || page > _private.lastPage) return $.error("setPage : invalid page number");
                 _private.page = page;
                 _private.run();
