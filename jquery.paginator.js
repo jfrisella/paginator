@@ -75,10 +75,11 @@
             //All data is good, set the last page
             _private.setLastPage();
 
-            var html = "";
+            var html = "<div id='paginator-main-container'>";
             html += _private.buildNavigation();
             html += _private.buildBody();
             html += _private.buildNavigation();
+            html += "</div>";
             _private.$el.html(html);
 
             _private.changeActive();
@@ -199,15 +200,15 @@
         /**
         *   Events
         */
-        $("#paginate-container").on("click", "#paginator-next-page", function(e){
+        $("body").on("click", "#paginator-next-page", function(e){
             e.preventDefault();
             _private.$el.paginator("nextPage");
         });
-        $("#paginate-container").on("click", "#paginator-prev-page", function(e){
+        $("body").on("click", "#paginator-prev-page", function(e){
             e.preventDefault();
             _private.$el.paginator("prevPage");
         });
-        $("#paginate-container").on("click", ".paginator-set-page", function(e){
+        $("body").on("click", ".paginator-set-page", function(e){
             e.preventDefault();
             _private.$el.paginator("setPage", $(e.currentTarget).attr("page"));
         });
