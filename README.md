@@ -1,10 +1,7 @@
 # Paginator
-<br>
-* [Basic Usage](#basic-usage)
-* [Next Page Manually](#next-page-manually)
-* [Previous Page Manually](#previous-page-manually)
-* [Set Page Manually](#set-page-manually)
-* [Data Formats](#data-formats)
+Get to the Choppa!!!
+<br><br>
+Makes paginating easier.
 
 
 <br><br>
