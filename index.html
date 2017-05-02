@@ -10,13 +10,16 @@
     <script>
         var time = 0;
         $("#paginate-container").paginator({
-            data: data,
-            pageSize: 3
+            url: "http://issues.wenzhixin.net.cn/examples/bootstrap_table/data",
+            pagination: "server",
+            pageSize: 10,
+            parse: function(data){
+                return data;
+            },
+            renderNav: function(page, last){
+                console.log(page, last);
+            }
         });
-
-        setTimeout(function(){
-            $("#paginate-container").paginator("setPage", 4);
-        }, 5000);
 
     </script>
 </body>
