@@ -1,7 +1,7 @@
 # Paginator
 
 # Basic Usage
-```
+```javascript
 $("#main-container").paginator({
     data: ["some","data"]
 });
@@ -12,7 +12,7 @@ $("#main-container").paginator({
 # Next Page Manually
 * you must have already called `init`
 * will throw jquery error if there is not a next page
-```
+```javascript
 $("#main-container").paginator("nextPage");
 ```
 
@@ -21,7 +21,7 @@ $("#main-container").paginator("nextPage");
 # Previous Page Manually
 * you must have already called `init`
 * will throw jquery error if there is not a previous page
-```
+```javascript
 $("#main-container").paginator("prevPage");
 ```
 
@@ -30,14 +30,14 @@ $("#main-container").paginator("prevPage");
 # Set Page Manually
 * you must have already called `init`
 * will throw jquery error if page does not exist
-```
+```javascript
 $("#main-container").paginator("setPage", 8);
 ```
 
 <br><br>
 
 # Pull Data from URL
-```
+```javascript
 $("#main-container").paginator({
     url: "/my/rest/api/"
 });
