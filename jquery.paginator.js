@@ -101,7 +101,7 @@
                   lastPage = _private.lastPage;
               html += "<div class='row paginator-pagination-container'><div class='col-xs-12'>";
               html += "<div class='btn-group pull-right'>";
-              html += "<a href='' class='btn btn-default' id='paginator-prev-page'>&#60;</a>";
+              html += "<a href='' class='btn " + _options.btnDefault + "' id='paginator-prev-page'>&#60;</a>";
 
               if(lastPage >= 1){
 
@@ -120,7 +120,7 @@
                   html += "<a href='' class='btn btn-default paginator-set-page' page='0'>0</a>";
               }
 
-              html += "<a href=''class='btn btn-default' id='paginator-next-page'>&#62;</a>";
+              html += "<a href=''class='btn " + _options.btnDefault + "' id='paginator-next-page'>&#62;</a>";
               html+= "</div>";
               html += "</div></div>";
               return html;
@@ -199,15 +199,15 @@
         /**
         *   Events
         */
-        $("body").on("click", "#paginator-next-page", function(e){
+        $("#paginate-container").on("click", "#paginator-next-page", function(e){
             e.preventDefault();
             _private.$el.paginator("nextPage");
         });
-        $("body").on("click", "#paginator-prev-page", function(e){
+        $("#paginate-container").on("click", "#paginator-prev-page", function(e){
             e.preventDefault();
             _private.$el.paginator("prevPage");
         });
-        $("body").on("click", ".paginator-set-page", function(e){
+        $("#paginate-container").on("click", ".paginator-set-page", function(e){
             e.preventDefault();
             _private.$el.paginator("setPage", $(e.currentTarget).attr("page"));
         });

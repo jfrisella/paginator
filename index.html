@@ -15,6 +15,9 @@
     <script>
         $("#paginate-container").paginator({
             url: "http://issues.wenzhixin.net.cn/examples/bootstrap_table/data",
+            params: {
+                hello: "world"
+            },
             pagination: "server",
             pageSize: 20,
             parse: function(data){

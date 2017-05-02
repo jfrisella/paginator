@@ -1,10 +1,70 @@
 # Paginator
+<br>
+* [Basic Usage](#basic-usage)
+* [Next Page Manually](#next-page-manually)
+* [Previous Page Manually](#previous-page-manually)
+* [Set Page Manually](#set-page-manually)
+* [Data Formats](#data-formats)
+
+
+<br><br>
 
 # Basic Usage
+* you can supply it data directly or from a url
 ```javascript
 $("#main-container").paginator({
-    data: ["some","data"]
+    data: [{"name": "item1"},{"name": "item2"}],
+
+    //url can be used instead of direct data
+    url: "/my/rest/api",
+
+    //"client" or "server" side pagination
+    //data formats are at the bottom
+    //client is default  
+    //server side will pass two params with $.get request
+    // "offset" and "limit"
+    pagination: "client",
+
+    //how many items to show on page
+    pageSize: 20,
+
+    //other get parameters to be passed with url
+    params: {
+        "hello": "world"
+    },
+
+    //button classes used on the pagination navigation
+    //btnActive is the current page
+    //btnDefault are all the other non active buttons
+    btnDefault: "btn-default",
+    btnActive: "btn-primary",
+
+    //There is a parsing function if the data
+    //is coming back in an incorrect format
+    //list of formats are below
+    parse: function(results){
+        return results.data;
+    },
+
+    //render will return each item to be displayed
+    //one at a time
+    render: function(item){
+        return "<strong>" + item.name + "</strong>";
+    },
+
+    //return what you would like to show
+    //if there are no results
+    renderEmpty: function(){
+        return "<strong>Woops!!!</strong>";
+    },
+
+    //return what you would like to show
+    //when data is loading
+    renderLoading: function(){
+        return "<strong>Loading . . .</strong>";
+    }
 });
+
 ```
 
 <br><br>
@@ -36,9 +96,21 @@ $("#main-container").paginator("setPage", 8);
 
 <br><br>
 
-# Pull Data from URL
+# Data Formats
 ```javascript
-$("#main-container").paginator({
-    url: "/my/rest/api/"
-});
+//passing data direct
+//client side with URL
+[
+  {"name": "item1"},
+  { "name": "item2"}
+]
+
+//server side with url
+{
+  total: 2,
+  rows: [
+    { "name": "item1"},
+    { "name": "item2"}
+  ]
+}
 ```
