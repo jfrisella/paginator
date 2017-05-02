@@ -2,22 +2,22 @@
 <head></head>
 <body>
 
-    <div id="cc-container"></div>
+    <div id="paginate-container"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="jquery.closed-captioner.js"></script>
+    <script type="text/javascript" src="jquery.paginator.js"></script>
     <script src="data.js"></script>
     <script>
         var time = 0;
-        $("#cc-container").closedCaptioner({
-            data: ccData
+        $("#paginate-container").paginator({
+            data: data,
+            pageSize: 3
         });
 
-        var val = setInterval(function(){
-            time += 300;
-            $("#cc-container").closedCaptioner("updateTime", time);
-            if(time > 11000) clearInterval(val);
-        }, 300);
+        setTimeout(function(){
+            $("#paginate-container").paginator("setPage", 4);
+        }, 5000);
+
     </script>
 </body>
 </html>

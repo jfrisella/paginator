@@ -1,0 +1,22 @@
+{
+    "resultSet": {
+        "total": 9,
+        "rows": [
+            {
+                "name": "Duke University",
+                "city": "Durham",
+                "state": "North Carolina"
+            },
+            {
+                "name": "NC State University",
+                "city": "Raleigh",
+                "state": "North Carolina"
+            },
+            {
+                "name": "East Carolina University",
+                "city": "Greenville",
+                "state": "North Carolina"
+            }
+        ]
+    }
+}
