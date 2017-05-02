@@ -35,6 +35,14 @@
             render: function(item){
                 console.log("You must override the 'render' function");
                 return "<div class=''>" + JSON.stringify(item) + "</div>";
+            },
+
+            renderEmpty: function(){
+                return "<div class='well'>Sorry! There were no results.</div>";
+            },
+
+            renderLoading: function(){
+                return "<div class='well'>Loading . . .</div>";
             }
         };
 
@@ -76,10 +84,15 @@
             _private.changeActive();
         }
         _private.buildBody = function(){
-            var html = "";
-            for(var i = 0; i < _private.currentData.rows.length; i+=1){
-                html += _options.render(_private.currentData.rows[i]);
+            var html = "<div class='row paginator-body-container'><div class='col-xs-12'>";
+            if(!_private.currentData.rows || _private.currentData.rows.length === 0){
+                html += _options.renderEmpty();
+            }else{
+                for(var i = 0; i < _private.currentData.rows.length; i+=1){
+                    html += _options.render(_private.currentData.rows[i]);
+                }
             }
+            html += "</div></div>";
             return html;
         }
         _private.buildNavigation = function(){
@@ -215,6 +228,8 @@
                 //extend defaults with options
                 _options = {};
                 $.extend(_options, _defaults, options);
+
+                _private.$el.html(_options.renderLoading());
 
                 //Validation checking
                 if(!_options.data && !_options.url){

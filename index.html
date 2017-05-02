@@ -13,16 +13,18 @@
     <script type="text/javascript" src="jquery.paginator.js"></script>
     <script src="data.js"></script>
     <script>
-        var time = 0;
         $("#paginate-container").paginator({
             url: "http://issues.wenzhixin.net.cn/examples/bootstrap_table/data",
             pagination: "server",
-            pageSize: 10,
+            pageSize: 20,
+            parse: function(data){
+                return data;
+            },
             render: function(item){
                 return "<div class='well'>" + item.name + "</div>";
             },
-            parse: function(data){
-                return data;
+            renderEmpty: function(){
+                return "<div class='alert alert-danger'>Woops!</div>";
             }
         });
 
