@@ -37,8 +37,12 @@
                 return "<div class=''>" + JSON.stringify(item) + "</div>";
             },
 
-            renderEmpty: function(){
+            renderEmptyBody: function(){
                 return "<div class='well'>Sorry! There were no results.</div>";
+            },
+
+            renderEmptyPagination: function(){
+                return "<div></div>";
             },
 
             renderLoading: function(){
@@ -87,7 +91,7 @@
         _private.buildBody = function(){
             var html = "<div class='row paginator-body-container'><div class='col-xs-12'>";
             if(!_private.currentData.rows || _private.currentData.rows.length === 0){
-                html += _options.renderEmpty();
+                html += _options.renderEmptyBody();
             }else{
                 for(var i = 0; i < _private.currentData.rows.length; i+=1){
                     html += _options.render(_private.currentData.rows[i]);
@@ -100,6 +104,7 @@
               var html = "",
                   currentPage = _private.page,
                   lastPage = _private.lastPage;
+
               html += "<div class='row paginator-pagination-container'><div class='col-xs-12'>";
               html += "<div class='btn-group pull-right'>";
               html += "<a href='' class='btn " + _options.btnDefault + "' id='paginator-prev-page'>&#60;</a>";
@@ -118,7 +123,8 @@
                   }
 
               }else{
-                  html += "<a href='' class='btn btn-default paginator-set-page' page='0'>0</a>";
+                  // hide nav if empty results
+                   return _options.renderEmptyNavigation();
               }
 
               html += "<a href=''class='btn " + _options.btnDefault + "' id='paginator-next-page'>&#62;</a>";
